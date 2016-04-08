@@ -29,6 +29,6 @@ public class H2SpringApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(H2SpringApplication.class, args);
-        DBConnection.connectToDB();
+//        DBConnection2.connectToDB();
 	}
 }

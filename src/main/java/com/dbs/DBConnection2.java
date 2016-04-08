@@ -8,15 +8,15 @@ import java.sql.*;
 /**
  * Created by anghelc on 08/04/16.
  */
-public class DBConnection {
+public class DBConnection2 {
 
-    private static final Logger LOGGER  = LoggerFactory.getLogger(DBConnection.class);
+    private static final Logger LOGGER  = LoggerFactory.getLogger(DBConnection2.class);
     private static final String DB_DRIVER = "org.h2.Driver";
-    private static final String DB_CONNECTION = "jdbc:h2:~/test";
+    private static final String DB_CONNECTION = "jdbc:h2:~/test2";
     private static final String DB_USER = "";
     private static final String DB_PASSWORD = "";
 
-    public Connection connectToDB() {
+    public static Connection connectToDB() {
         LOGGER.info("connecting to DB");
 
         Connection dbConnection = null;
