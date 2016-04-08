@@ -16,19 +16,27 @@
 
 package com.dbs;
 
+import com.dbs.orchestration.Orchestrator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+import java.sql.SQLException;
 
 @SpringBootApplication
 public class H2SpringApplication {
 
 
 
-	public static void main(String[] args) {
-		SpringApplication.run(H2SpringApplication.class, args);
+	public static void main(String[] args) throws SQLException {
+        ApplicationContext ctx = SpringApplication.run(H2SpringApplication.class, args);
 //        DBConnection2.connectToDB();
+
+        Orchestrator orchestrator = ctx.getBean(Orchestrator.class);
+        orchestrator.runDBOperation();
 	}
 }
