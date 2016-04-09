@@ -1,10 +1,14 @@
 package com.dbs.orchestration;
 
-import com.dbs.DBOperationService;
+import com.dbs.service.DBOperationService;
+import com.dbs.routing.DataSourceKey;
+import com.dbs.routing.DatasourceRouter;
+import com.dbs.routing.DataSourceRoutingContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -13,16 +17,20 @@ import java.sql.SQLException;
 @Component
 public class Orchestrator {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Orchestrator.class);
     @Autowired
     DBOperationService dbOperationService;
 
     @Autowired
-    Connection db1Connection;
-
-    @Autowired
-    Connection db2Connection;
+    DatasourceRouter datasourceRouter;
 
     public void runDBOperation() throws SQLException {
-        dbOperationService.insertWithPreparedStatement(db1Connection);
+
+        LOGGER.info("###################### START OPERATIONS ###########################");
+
+        DataSourceRoutingContextHolder.setDataSource(DataSourceKey.FTE2);
+        dbOperationService.insertWithPreparedStatement(datasourceRouter.getConnection());
+
+        LOGGER.info("###################### END OPERATIONS ###########################");
     }
 }

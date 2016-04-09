@@ -1,4 +1,4 @@
-package com.dbs;
+package com.dbs.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Created by anghelc on 08/04/16.
+ * This is a data source agnostinc service. It provides operations on DB.
  */
 @Component
 public class DBOperationService {
@@ -21,6 +21,9 @@ public class DBOperationService {
         LOGGER.info("Initializing DBOperationService...");
     }
 
+    /**
+     * This is based on an internet example so it must be enhanced for our purpose.
+     */
     public void insertWithPreparedStatement(Connection connection) throws SQLException {
         PreparedStatement createPreparedStatement = null;
         PreparedStatement insertPreparedStatement = null;
@@ -46,13 +49,13 @@ public class DBOperationService {
             ResultSet rs = selectPreparedStatement.executeQuery();
             System.out.println("H2 Database inserted through PreparedStatement");
             while (rs.next()) {
-                System.out.println("Id "+rs.getInt("id")+" Name "+rs.getString("name"));
+                LOGGER.info("Id "+rs.getInt("id")+" Name "+rs.getString("name"));
             }
             selectPreparedStatement.close();
 
             connection.commit();
         } catch (SQLException e) {
-            System.out.println("Exception Message " + e.getLocalizedMessage());
+            LOGGER.info("Exception Message " + e.getLocalizedMessage());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
